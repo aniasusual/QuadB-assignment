@@ -1,7 +1,7 @@
 const app = require("./app");
 // const cloudinary = require("cloudinary");
 const { connectDatabase } = require("./config/database");
-// const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
