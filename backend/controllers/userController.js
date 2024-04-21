@@ -23,13 +23,16 @@ exports.registerUser = async (req, res, next) => {
 
     } catch (error) {
         console.log("User not created", error.message);
+        res.status(500).json({
+            "message": `User not created due to ${error.message}`,
+            "error": error.message
+        })
     }
 }
 
 exports.loginUser = async function (req, res, next) {
 
     try {
-        console.log("request lag rhi hai")
 
         const { email, password } = req.body;
 
@@ -55,6 +58,10 @@ exports.loginUser = async function (req, res, next) {
 
     } catch (error) {
         console.log("user login failed", error.message);
+        res.json({
+            "message": `User not logged in due to ${error.message}`,
+            "error": error.message
+        })
     }
 }
 
@@ -72,5 +79,21 @@ exports.logoutUser = (req, res) => {
 
     } catch (error) {
         console.log("error occured: ", error);
+    }
+}
+
+//Get user Details
+exports.getUserDetails = async function (req, res, next) {
+    try {
+        const user = await userModel.findById(req.user.id);
+
+        res.status(200).json({
+            status: "success",
+            message: "user found",
+            user
+        })
+
+    } catch (error) {
+        console.log("error in getUserDetails:", error);
     }
 }

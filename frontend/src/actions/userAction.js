@@ -30,7 +30,7 @@ export const login = (email, password) => async (dispatch) => {
         };
 
         const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/login`, { email, password }, config);
-        console.log(data)
+        // console.log(data)
 
         dispatch({ type: LOGIN_SUCCESS, payload: data.user });
     } catch (error) {
@@ -53,6 +53,7 @@ export const register = (userData) => async (dispatch) => {
 
         dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
     } catch (error) {
+        console.log(error.response.data.message);
         dispatch({
             type: REGISTER_USER_FAIL,
             payload: error.response.data.message,
@@ -72,6 +73,19 @@ export const logout = () => async (dispatch) => {
         dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
     }
 }
+
+// Load User
+export const loadUser = () => async (dispatch) => {
+    try {
+        dispatch({ type: LOAD_USER_REQUEST });
+
+        const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/me`, { withCredentials: true });
+
+        dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
+    } catch (error) {
+        dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
+    }
+};
 
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {

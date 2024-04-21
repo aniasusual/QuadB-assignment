@@ -34,7 +34,7 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("reaches here");
+        // console.log("reaches here");
         dispatch(login(email, password));
         console.log("login form submitted");
     }

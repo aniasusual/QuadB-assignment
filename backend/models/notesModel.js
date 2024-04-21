@@ -10,24 +10,24 @@ const notesSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    content: {
+    description: {
         type: String,
         required: true
     },
-    media: {
-        public_id: {
-            type: String,
-            // required: true,
-        },
-        url: {
-            type: String,
-            // required: true,
-        },
-    },
-    backgroundColor: {
-        type: String,
-        default: "white"
-    },
+    // media: {
+    //     public_id: {
+    //         type: String,
+    //         // required: true,
+    //     },
+    //     url: {
+    //         type: String,
+    //         // required: true,
+    //     },
+    // },
+    // backgroundColor: {
+    //     type: String,
+    //     default: "white"
+    // },
     createdAt: {
         type: Date,
         default: Date.now
