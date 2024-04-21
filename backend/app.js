@@ -14,7 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use(cors({
-    origin: "http://localhost:3000", // Add your frontend URL here
+    // origin: "http://localhost:3000", // Add your frontend URL here
+    origin: "https://6625a26151c5b61c70a04a40--golden-moonbeam-274b68.netlify.app", // Add your frontend URL here
     credentials: true, // Allow cookies to be sent with the request
     methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
     allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
