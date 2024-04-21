@@ -88,7 +88,7 @@ export const getOneNote = (id) => async (dispatch) => {
 
         dispatch({
             type: ONE_NOTE_SUCCESS,
-            payload: data,
+            payload: data.note,
         });
     } catch (error) {
         dispatch({

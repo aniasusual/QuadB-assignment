@@ -9,11 +9,12 @@ import { loadUser } from "./actions/userAction";
 import store from "./store"
 import Edit from "./components/edit/Edit";
 
+
 function App() {
+
 
   useEffect(() => {
     store.dispatch(loadUser());
-
   }, [])
 
   return (

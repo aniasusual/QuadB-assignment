@@ -90,19 +90,17 @@ exports.updateNote = async (req, res) => {
 
 exports.findNote = async (req, res) => {
     try {
-        const { id } = req.body;
-        // console.log(id);
+        const note = await notesModel.findById(req.body.id);
+        console.log(req.body.id);
+        console.log(note)
 
-        // Find the note by ID
-        const note = await notesModel.findById(id);
+        res.status(200).json({
+            status: true,
+            message: "note found",
+            note
+        })
 
-        if (note) {
-            res.status(200).json({ success: true, note: note });
-        } else {
-            res.status(404).json({ success: false, message: 'Note not found' });
-        }
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: 'Internal server error' });
+        console.log("error in finding note:", error);
     }
 }

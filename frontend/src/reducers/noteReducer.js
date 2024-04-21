@@ -96,8 +96,8 @@ export const oneNoteReducer = createReducer({}, (builder) => {
         })
         .addCase(ONE_NOTE_SUCCESS, (state, action) => {
             state.loading = false;
-            state.success = action.payload.success;
-            state.note = action.payload.note;
+            state.noteSuccess = true;
+            state.note = action.payload;
         })
         .addCase(ONE_NOTE_FAIL, (state, action) => {
             state.loading = false;

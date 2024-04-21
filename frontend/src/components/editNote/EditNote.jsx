@@ -20,12 +20,13 @@ function EditNote() {
     const dispatch = useDispatch();
     const alert = useAlert()
 
-    const [userInfo, setuserInfo] = useState({
-        title: '',
-    });
 
     const { success, error } = useSelector(state => state.newNote);
+    const { noteSuccess, note } = useSelector(state => state.oneNote);
 
+    const [userInfo, setuserInfo] = useState({
+        title: note ? note.title : '',
+    });
 
     const onChangeValue = (e) => {
         setuserInfo({
@@ -72,13 +73,19 @@ function EditNote() {
             dispatch(clearErrors());
         }
 
-        // console.log("useEffect", success);
-        if (success) {
+        if (noteSuccess) {
+            console.log("useEffect", noteSuccess);
+            console.log(userInfo.title)
             alert.success("Note Updated successfully")
-            window.location.reload();
+            // window.location.reload();
         }
 
-    }, [success, navigate, alert])
+        setuserInfo(prevState => ({
+            ...prevState,
+            title: note ? note.title : '',
+        }));
+
+    }, [noteSuccess, navigate, alert, note])
 
 
     return (
@@ -93,7 +100,7 @@ function EditNote() {
                             <input type="text" name="title" value={userInfo.title} onChange={onChangeValue} placeholder="Title" required />
                         </div>
                         <div id='note-description'>
-                            <label> Description  </label>
+                            <label> Description </label>
                             <Editor
                                 editorState={description}
                                 toolbarClassName="toolbarClassName"

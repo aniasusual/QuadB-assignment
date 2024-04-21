@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { AiOutlineUser } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import "./navbar.scss"
@@ -7,9 +7,14 @@ import UserOptions from '../userOptions/UserOptions';
 
 const Navbar = () => {
 
-    const { error, loading, isAuthenticated } = useSelector(
+    const { isAuthenticated, user } = useSelector(
         (state) => state.user
     );
+
+    // useEffect(() => {
+    //     console.log(user.name);
+    // }, [])
+
 
     return (
         <div id="navbar">
