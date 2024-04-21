@@ -9,5 +9,6 @@ notesRouter.route("/all-notes").get(isAuthenticated, getAllnotes)
 notesRouter.route("/note/delete/:id").delete(isAuthenticated, deleteNote);
 notesRouter.route("/note/update").post(isAuthenticated, updateNote);
 notesRouter.route("/note/find").post(isAuthenticated, findNote);
+notesRouter.route("/note/update").put(isAuthenticated, updateNote);
 
 module.exports = notesRouter;

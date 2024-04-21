@@ -104,3 +104,30 @@ exports.findNote = async (req, res) => {
         console.log("error in finding note:", error);
     }
 }
+
+exports.updateNote = async (req, res) => {
+    try {
+        const { id, title, description } = req.body;
+
+        // Find the note by ID
+        const note = await notesModel.findById(id);
+
+        // If note not found, return an error
+        if (!note) {
+            return res.status(404).json({ success: false, error: 'Note not found' });
+        }
+
+        // Update title and description
+        note.title = title;
+        note.description = description;
+
+        // Save the updated note
+        const updatedNote = await note.save();
+
+        // Return success response
+        return res.status(200).json({ success: true, note: updatedNote });
+    } catch (error) {
+        // Handle errors
+        return res.status(500).json({ success: false, error: error.message });
+    }
+}

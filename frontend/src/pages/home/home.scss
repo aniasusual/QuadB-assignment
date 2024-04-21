@@ -247,6 +247,29 @@ input {
   font-size: 14px; /* Example font size */
   /* Add more styles as needed */
 }
+#search-info {
+  font: 300 1vmax "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+    sans-serif;
+  max-width: 20vw;
+  text-align: center;
+  margin: 10px;
+}
+
+.sort-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+  margin: 10px;
+}
+
+.sort-button:hover {
+  background-color: #0056b3;
+}
 
 @media screen and (max-width: 600px) {
   #close-newNote {

@@ -12,10 +12,15 @@ import {
     DELETE_NOTE_SUCCESS,
     DELETE_NOTE_FAIL,
 
-    CLEAR_ERRORS,
     ONE_NOTE_REQUEST,
     ONE_NOTE_SUCCESS,
     ONE_NOTE_FAIL,
+
+    UPDATE_NOTE_REQUEST,
+    UPDATE_NOTE_SUCCESS,
+    UPDATE_NOTE_FAIL,
+
+    CLEAR_ERRORS,
 } from "../constants/noteConstants";
 
 
@@ -93,6 +98,24 @@ export const getOneNote = (id) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: ONE_NOTE_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+}
+
+export const updateNote = (id, title, description) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_NOTE_REQUEST });
+
+        const { data } = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/v1/note/update`, { id, title, description }, { withCredentials: true });
+
+        dispatch({
+            type: UPDATE_NOTE_SUCCESS,
+            payload: data.note,
+        });
+    } catch (error) {
+        dispatch({
+            type: UPDATE_NOTE_FAIL,
             payload: error.response.data.message,
         });
     }

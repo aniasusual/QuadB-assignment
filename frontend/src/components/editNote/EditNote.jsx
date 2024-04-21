@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState, convertToRaw, ContentState, convertFromHTML } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux"
 
 import axios from 'axios';
 import "./editNote.scss"
-import { createNote } from '../../actions/noteAction';
+import { createNote, updateNote } from '../../actions/noteAction';
 import { useAlert } from 'react-alert';
 import { clearErrors } from '../../actions/userAction';
 
@@ -28,6 +28,11 @@ function EditNote() {
         title: note ? note.title : '',
     });
 
+    // let editorState = EditorState.createWithContent(
+    //     ContentState.createFromBlockArray(
+    //         convertFromHTML(note.description)
+    //     ));
+
     const onChangeValue = (e) => {
         setuserInfo({
             ...userInfo,
@@ -37,12 +42,13 @@ function EditNote() {
 
     let editorState = EditorState.createEmpty();
     const [description, setDescription] = useState(editorState);
+
     const onEditorStateChange = (editorState) => {
         setDescription(editorState);
     }
 
     const [isError, setError] = useState(null);
-    const addDetails = async (event) => {
+    const updateDetails = async (event) => {
         try {
             event.preventDefault();
             event.persist();
@@ -60,7 +66,14 @@ function EditNote() {
             //             navigate('/')
             //         }
             //     })
-            dispatch(createNote(userInfo.title, userInfo.description.value));
+            console.log("note_id", note._id);
+            dispatch(updateNote(note._id, userInfo.title, userInfo.description.value));
+            alert.success("Note updated successfully")
+            setTimeout(() => {
+                window.location.reload();
+
+            }, 1000);
+
 
 
         } catch (error) { throw error; }
@@ -74,25 +87,37 @@ function EditNote() {
         }
 
         if (noteSuccess) {
-            console.log("useEffect", noteSuccess);
-            console.log(userInfo.title)
-            alert.success("Note Updated successfully")
-            // window.location.reload();
+            // console.log("useEffect", noteSuccess);
+            // console.log(userInfo.title)
+            // alert.success("Note Updated successfully")
+
+            setuserInfo(prevState => ({
+                ...prevState,
+                title: note ? note.title : '',
+            }));
+            // console.log(note.description)
+
+            editorState = EditorState.createWithContent(
+                ContentState.createFromBlockArray(
+                    convertFromHTML(note.description)
+                ));
+            setDescription(editorState);
+
+
+
         }
 
-        setuserInfo(prevState => ({
-            ...prevState,
-            title: note ? note.title : '',
-        }));
 
-    }, [noteSuccess, navigate, alert, note])
+
+
+    }, [noteSuccess, alert, note])
 
 
     return (
         <>
             <div className="addnote">
 
-                <form onSubmit={addDetails}>
+                <form onSubmit={updateDetails}>
 
                     <div>
                         <div id='note-title'>

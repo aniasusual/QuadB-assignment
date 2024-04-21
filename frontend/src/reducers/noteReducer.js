@@ -16,6 +16,10 @@ import {
     DELETE_NOTE_FAIL,
     DELETE_NOTE_RESET,
 
+    UPDATE_NOTE_REQUEST,
+    UPDATE_NOTE_SUCCESS,
+    UPDATE_NOTE_FAIL,
+
     CLEAR_ERRORS,
 } from "../constants/noteConstants";
 
@@ -100,6 +104,26 @@ export const oneNoteReducer = createReducer({}, (builder) => {
             state.note = action.payload;
         })
         .addCase(ONE_NOTE_FAIL, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
+
+        .addCase(CLEAR_ERRORS, (state, action) => {
+            state.error = null;
+        });
+});
+
+export const updateNoteReducer = createReducer({}, (builder) => {
+    builder
+        .addCase(UPDATE_NOTE_REQUEST, (state, action) => {
+            state.loading = true;
+        })
+        .addCase(UPDATE_NOTE_SUCCESS, (state, action) => {
+            state.loading = false;
+            state.updateSuccess = true;
+            state.updatedNote = action.payload;
+        })
+        .addCase(UPDATE_NOTE_FAIL, (state, action) => {
             state.loading = false;
             state.error = action.payload;
         })
