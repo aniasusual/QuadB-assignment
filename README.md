@@ -60,7 +60,7 @@ To get started with the Todo app, follow these steps:
 - **Authentication**: JWT (JSON Web Tokens)
 
 ## Credits
-This Todo app was created by [Your Name] as a project for [Purpose/Context]. Contributions and feedback are welcome.
+This Todo app was created by ANIMESH as a project for assignment submission at QUADB. Contributions and feedback are welcome.
 
 ## License
 This project is licensed under the [License Name] License. See the LICENSE file for details.
