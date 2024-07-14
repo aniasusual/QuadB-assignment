@@ -1,5 +1,7 @@
 # Todo App Readme
 
+## !important- It is mandatory to login/register to create notes.
+
 ## Overview
 This Todo app is built using the MERN stack with MongoDB as the database. It provides users with functionalities to manage their tasks efficiently. Below are the key features and functionalities of the app:
 
